@@ -15,14 +15,14 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        // Business-focused variants using dark orange theme
-        hero: "bg-gradient-orange text-white hover:shadow-orange-glow hover:scale-105 transition-bounce font-medium",
+        // Business-focused variants using professional theme
+        hero: "bg-gradient-primary text-white hover:shadow-primary-glow hover:scale-105 transition-bounce font-medium",
         success: "bg-gradient-success text-white hover:shadow-widget font-medium",
         danger: "bg-gradient-danger text-white hover:shadow-widget font-medium",
         profit: "bg-profit-positive text-white hover:bg-profit-positive/90 shadow-card font-medium",
         expense: "bg-expense text-white hover:bg-expense/90 shadow-card font-medium",
-        brand: "bg-brand-primary text-white hover:bg-brand-primary-light shadow-orange-glow hover:scale-105 transition-smooth font-medium",
-        orange: "bg-gradient-orange text-white hover:shadow-orange-glow font-medium",
+        brand: "bg-brand-primary text-white hover:bg-brand-primary-light shadow-primary-glow hover:scale-105 transition-smooth font-medium",
+        blue: "bg-gradient-blue text-white hover:shadow-primary-glow font-medium",
       },
       size: {
         default: "h-10 px-4 py-2",

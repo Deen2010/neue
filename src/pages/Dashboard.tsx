@@ -17,10 +17,13 @@ import {
   BarChart3,
   Clock
 } from "lucide-react";
-import dashboardHero from "@/assets/dashboard-hero.jpg";
+import dashboardHero from "@/assets/dashboard-hero-gray.jpg";
+import { useSettingsStore } from "@/stores/useSettingsStore";
+import { formatCurrency } from "@/utils/currency";
 
 export default function Dashboard() {
   const { inventory, sales, orders } = useStore();
+  const { currency } = useSettingsStore();
 
   // Calculate real metrics from store data
   const activeItems = inventory.filter(item => item.status === 'active').length;
@@ -51,7 +54,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <div className="relative rounded-2xl overflow-hidden bg-gradient-orange p-8 text-white shadow-orange-glow">
+      <div className="relative rounded-2xl overflow-hidden bg-gradient-primary p-8 text-white shadow-primary-glow">
         <div className="absolute inset-0 opacity-20">
           <img 
             src={dashboardHero} 
@@ -78,14 +81,14 @@ export default function Dashboard() {
         />
         <MetricCard
           title="Monthly Revenue"
-          value={`€${monthlyRevenue.toLocaleString()}`}
+          value={formatCurrency(monthlyRevenue, currency)}
           subtitle="Total sales revenue"
           variant="revenue"
           icon={<Euro className="h-5 w-5" />}
         />
         <MetricCard
           title="Monthly Profit"
-          value={`€${monthlyProfit.toLocaleString()}`}
+          value={formatCurrency(monthlyProfit, currency)}
           subtitle="After all expenses"
           variant="profit"
           icon={<TrendingUp className="h-5 w-5" />}
@@ -140,7 +143,7 @@ export default function Dashboard() {
                     <p className="text-sm text-muted-foreground">Sold to {sale.customer}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold text-profit-positive">€{sale.salePrice}</p>
+                    <p className="font-semibold text-profit-positive">{formatCurrency(sale.salePrice, currency)}</p>
                     <p className="text-xs text-muted-foreground flex items-center gap-1">
                       <Clock className="h-3 w-3" />
                       {getTimeSince(sale.date)}
@@ -152,7 +155,7 @@ export default function Dashboard() {
                   <TrendingUp className="h-12 w-12 mx-auto mb-4 opacity-50" />
                   <p>No sales recorded yet</p>
                   <RecordSale>
-                    <Button variant="orange" className="mt-2">
+                    <Button variant="blue" className="mt-2">
                       Record Your First Sale
                     </Button>
                   </RecordSale>
@@ -174,9 +177,9 @@ export default function Dashboard() {
             <div className="space-y-4">
               <div className="p-4 rounded-lg border border-status-pending/20 bg-status-pending/5">
                 <p className="text-sm mb-3">Great job! Your business is growing steadily. Consider adding more inventory to meet demand.</p>
-                <div className="flex gap-2">
+                  <div className="flex gap-2">
                   <AddOrder>
-                    <Button size="sm" variant="orange">
+                    <Button size="sm" variant="blue">
                       Add Items
                     </Button>
                   </AddOrder>
@@ -213,16 +216,16 @@ export default function Dashboard() {
               <p className="text-sm text-muted-foreground">Active Listings</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-revenue">€{(totalInventoryValue / 1000).toFixed(1)}k</p>
+              <p className="text-2xl font-bold text-revenue">{formatCurrency(totalInventoryValue, currency)}</p>
               <p className="text-sm text-muted-foreground">Inventory Value</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-expense">€{monthlyExpenses.toLocaleString()}</p>
+              <p className="text-2xl font-bold text-expense">{formatCurrency(monthlyExpenses, currency)}</p>
               <p className="text-sm text-muted-foreground">Monthly Expenses</p>
             </div>
             <div>
               <p className="text-2xl font-bold text-brand-primary">
-                {soldItems > 0 ? Math.round(monthlyProfit / soldItems) : 0}
+                {soldItems > 0 ? formatCurrency(Math.round(monthlyProfit / soldItems), currency) : formatCurrency(0, currency)}
               </p>
               <p className="text-sm text-muted-foreground">Avg Profit/Item</p>
             </div>

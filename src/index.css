@@ -4,11 +4,11 @@
 
 /* Enhanced Multi-Color Business Design System - All colors MUST be HSL */
 
-/* Brand colors with more variety for better organization */
+/* Brand colors - Professional neutral theme */
 :root {
-  /* Primary brand colors - Orange accents */
-  --brand-primary: 24 100% 60%;           /* Orange #FF7A00 */
-  --brand-primary-light: 32 100% 65%;     /* Lighter orange */
+  /* Primary brand colors - Blue/Gray professional theme */
+  --brand-primary: 210 100% 55%;          /* Professional blue */
+  --brand-primary-light: 210 100% 65%;    /* Lighter blue */
   --brand-secondary: 210 20% 15%;         /* Dark gray */
   --brand-accent: 142 76% 36%;            /* Success green */
   
@@ -25,21 +25,21 @@
   /* Business metric colors */
   --profit-positive: 142 76% 36%;         /* Green for profit */
   --profit-negative: 0 84% 60%;           /* Red for loss */
-  --revenue-color: 24 100% 60%;           /* Orange for revenue */
+  --revenue-color: 210 100% 55%;          /* Blue for revenue */
   --expense-color: 0 84% 60%;             /* Red for expenses */
   
   /* Status colors */
   --status-active: 142 76% 36%;           /* Green */
   --status-pending: 45 93% 47%;           /* Yellow */
-  --status-sold: 24 100% 60%;             /* Orange */
+  --status-sold: 210 100% 55%;            /* Blue */
   --status-inactive: 210 10% 40%;         /* Gray */
   
   /* Enhanced gradients with new colors */
-  --gradient-hero: linear-gradient(135deg, hsl(var(--brand-primary)) 0%, hsl(32 100% 65%) 100%);
+  --gradient-hero: linear-gradient(135deg, hsl(var(--brand-primary)) 0%, hsl(var(--brand-primary-light)) 100%);
   --gradient-card: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(210 15% 12%) 100%);
   --gradient-success: linear-gradient(135deg, hsl(var(--profit-positive)) 0%, hsl(142 76% 45%) 100%);
   --gradient-danger: linear-gradient(135deg, hsl(var(--profit-negative)) 0%, hsl(0 84% 70%) 100%);
-  --gradient-orange: linear-gradient(135deg, hsl(var(--brand-primary)) 0%, hsl(32 100% 70%) 100%);
+  --gradient-primary: linear-gradient(135deg, hsl(var(--brand-primary)) 0%, hsl(var(--brand-primary-light)) 100%);
   --gradient-blue: linear-gradient(135deg, hsl(var(--color-blue)) 0%, hsl(var(--color-blue-light)) 100%);
   --gradient-purple: linear-gradient(135deg, hsl(var(--color-purple)) 0%, hsl(var(--color-purple-light)) 100%);
   --gradient-teal: linear-gradient(135deg, hsl(var(--color-teal)) 0%, hsl(var(--color-teal-light)) 100%);
@@ -48,11 +48,11 @@
   /* Logo gradients */
   --gradient-logo: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(0 0% 15%) 100%);
   
-  /* Shadows with orange glow */
+  /* Professional shadows */
   --shadow-card: 0 4px 6px -1px hsl(var(--brand-primary) / 0.1);
   --shadow-widget: 0 10px 15px -3px hsl(var(--brand-primary) / 0.15);
   --shadow-floating: 0 25px 50px -12px hsl(var(--brand-primary) / 0.3);
-  --shadow-orange-glow: 0 0 40px hsl(var(--brand-primary) / 0.2);
+  --shadow-primary-glow: 0 0 40px hsl(var(--brand-primary) / 0.2);
   
   /* Animation */
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -71,7 +71,7 @@
     --popover: 210 20% 10%;
     --popover-foreground: 210 20% 95%;
 
-    --primary: 24 100% 60%;
+    --primary: 210 100% 55%;
     --primary-foreground: 210 20% 8%;
 
     --secondary: 210 20% 15%;
@@ -88,18 +88,18 @@
 
     --border: 210 20% 18%;
     --input: 210 20% 15%;
-    --ring: 24 100% 60%;
+    --ring: 210 100% 55%;
 
     --radius: 0.75rem;
 
     --sidebar-background: 210 25% 6%;
     --sidebar-foreground: 210 20% 85%;
-    --sidebar-primary: 24 100% 60%;
+    --sidebar-primary: 210 100% 55%;
     --sidebar-primary-foreground: 210 20% 8%;
     --sidebar-accent: 210 20% 12%;
     --sidebar-accent-foreground: 210 20% 85%;
     --sidebar-border: 210 20% 15%;
-    --sidebar-ring: 24 100% 60%;
+    --sidebar-ring: 210 100% 55%;
   }
 
   .dark {
@@ -113,7 +113,7 @@
     --popover: 210 20% 10%;
     --popover-foreground: 210 20% 95%;
 
-    --primary: 24 100% 60%;
+    --primary: 210 100% 55%;
     --primary-foreground: 210 20% 8%;
 
     --secondary: 210 20% 15%;
@@ -130,16 +130,16 @@
 
     --border: 210 20% 18%;
     --input: 210 20% 15%;
-    --ring: 24 100% 60%;
+    --ring: 210 100% 55%;
     
     --sidebar-background: 210 25% 6%;
     --sidebar-foreground: 210 20% 85%;
-    --sidebar-primary: 24 100% 60%;
+    --sidebar-primary: 210 100% 55%;
     --sidebar-primary-foreground: 210 20% 8%;
     --sidebar-accent: 210 20% 12%;
     --sidebar-accent-foreground: 210 20% 85%;
     --sidebar-border: 210 20% 15%;
-    --sidebar-ring: 24 100% 60%;
+    --sidebar-ring: 210 100% 55%;
   }
 }
 

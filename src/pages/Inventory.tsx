@@ -60,7 +60,7 @@ export default function Inventory() {
           <p className="text-muted-foreground">Manage your clothing items and track performance</p>
         </div>
         <AddOrder>
-          <Button variant="orange" className="flex items-center gap-2">
+          <Button variant="blue" className="flex items-center gap-2">
             <Plus className="h-4 w-4" />
             Add Items via Order
           </Button>
@@ -233,7 +233,7 @@ export default function Inventory() {
                 <p className="text-lg mb-2">No items found</p>
                 <p className="text-sm">Try adjusting your search or add new inventory items.</p>
                 <AddOrder>
-                  <Button variant="orange" className="mt-4">
+                  <Button variant="blue" className="mt-4">
                     Create Your First Order
                   </Button>
                 </AddOrder>

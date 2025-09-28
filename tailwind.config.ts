@@ -101,7 +101,7 @@ export default {
         "gradient-card": "var(--gradient-card)",
         "gradient-success": "var(--gradient-success)",
         "gradient-danger": "var(--gradient-danger)",
-        "gradient-orange": "var(--gradient-orange)",
+        "gradient-primary": "var(--gradient-primary)",
         "gradient-blue": "var(--gradient-blue)",
         "gradient-purple": "var(--gradient-purple)",
         "gradient-teal": "var(--gradient-teal)",
@@ -112,7 +112,7 @@ export default {
         card: "var(--shadow-card)",
         widget: "var(--shadow-widget)",
         floating: "var(--shadow-floating)",
-        "orange-glow": "var(--shadow-orange-glow)",
+        "primary-glow": "var(--shadow-primary-glow)",
       },
       transitionTimingFunction: {
         smooth: "var(--transition-smooth)",

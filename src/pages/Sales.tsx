@@ -91,7 +91,7 @@ export default function Sales() {
           <p className="text-muted-foreground">Track your completed sales and analyze performance</p>
         </div>
         <RecordSale>
-          <Button variant="orange" className="flex items-center gap-2">
+          <Button variant="blue" className="flex items-center gap-2">
             <Plus className="h-4 w-4" />
             Record Sale
           </Button>

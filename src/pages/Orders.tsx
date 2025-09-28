@@ -58,7 +58,7 @@ export default function Orders() {
           <p className="text-muted-foreground">Track your buying history and manage inventory sectors</p>
         </div>
         <AddOrder>
-          <Button variant="orange" className="flex items-center gap-2">
+          <Button variant="blue" className="flex items-center gap-2">
             <Plus className="h-4 w-4" />
             New Order
           </Button>

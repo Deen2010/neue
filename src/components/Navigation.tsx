@@ -31,7 +31,7 @@ export function Navigation() {
   return (
     <>
       {/* Mobile Header */}
-      <div className="lg:hidden bg-gradient-orange text-white shadow-orange-glow">
+      <div className="lg:hidden bg-gradient-primary text-white shadow-primary-glow">
         <div className="flex items-center justify-between p-4">
           <Logo size="sm" />
           <Button
@@ -73,7 +73,7 @@ export function Navigation() {
 
       {/* Desktop Sidebar */}
       <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
-        <div className="flex flex-col flex-grow bg-gradient-orange overflow-y-auto shadow-orange-glow">
+        <div className="flex flex-col flex-grow bg-gradient-primary overflow-y-auto shadow-primary-glow">
           <div className="flex items-center flex-shrink-0 px-6 py-8">
             <Logo size="lg" />
           </div>
