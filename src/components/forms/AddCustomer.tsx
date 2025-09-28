@@ -26,11 +26,11 @@ import { useStore } from "@/stores/useStore";
 import { toast } from "sonner";
 
 const addCustomerSchema = z.object({
-  name: z.string().min(1, "Customer name is required"),
-  email: z.string().email("Invalid email").optional().or(z.literal("")),
-  phone: z.string().optional(),
-  platform: z.string().min(1, "Platform is required"),
-  notes: z.string().optional(),
+  name: z.string().trim().min(1, "Customer name is required").max(100, "Name must be less than 100 characters"),
+  email: z.string().trim().email("Invalid email").optional().or(z.literal("")),
+  phone: z.string().trim().optional(),
+  platform: z.string().trim().min(1, "Platform is required").max(50, "Platform name must be less than 50 characters"),
+  notes: z.string().trim().optional().refine(val => !val || val.length <= 500, "Notes must be less than 500 characters"),
   image: z.string().optional(),
 });
 
@@ -60,6 +60,18 @@ export function AddCustomer({ children }: AddCustomerProps) {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error("Image must be less than 5MB");
+        return;
+      }
+
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast.error("Please upload a valid image file");
+        return;
+      }
+
       const reader = new FileReader();
       reader.onload = (e) => {
         const result = e.target?.result as string;
@@ -76,21 +88,25 @@ export function AddCustomer({ children }: AddCustomerProps) {
   };
 
   const onSubmit = (data: AddCustomerFormData) => {
-    addCustomer({
-      name: data.name,
-      platform: data.platform,
-      email: data.email || undefined,
-      phone: data.phone || undefined,
-      notes: data.notes || undefined,
-      image: data.image || undefined,
-      totalPurchases: 0,
-      lastPurchase: new Date().toISOString(),
-    });
-    
-    toast.success("Customer added successfully!");
-    form.reset();
-    setCustomerImage("");
-    setOpen(false);
+    try {
+      addCustomer({
+        name: data.name,
+        platform: data.platform,
+        email: data.email || undefined,
+        phone: data.phone || undefined,
+        notes: data.notes || undefined,
+        image: data.image || undefined,
+        totalPurchases: 0,
+        lastPurchase: new Date().toISOString(),
+      });
+      
+      toast.success("Customer added successfully!");
+      setOpen(false);
+      form.reset();
+      setCustomerImage("");
+    } catch (error) {
+      toast.error("Failed to add customer. Please try again.");
+    }
   };
 
   return (
@@ -98,11 +114,11 @@ export function AddCustomer({ children }: AddCustomerProps) {
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Add New Customer</DialogTitle>
+          <DialogTitle>Neuen Kunde hinzufügen</DialogTitle>
           <DialogDescription>
-            Add a new customer to your database.
+            Einen neuen Kunden zu Ihrer Datenbank hinzufügen.
           </DialogDescription>
         </DialogHeader>
         
@@ -113,9 +129,9 @@ export function AddCustomer({ children }: AddCustomerProps) {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Customer Name</FormLabel>
+                  <FormLabel>Kundenname *</FormLabel>
                   <FormControl>
-                    <Input placeholder="John Doe" {...field} />
+                    <Input placeholder="Max Mustermann" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -128,9 +144,9 @@ export function AddCustomer({ children }: AddCustomerProps) {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email (optional)</FormLabel>
+                    <FormLabel>E-Mail (optional)</FormLabel>
                     <FormControl>
-                      <Input placeholder="john@example.com" {...field} />
+                      <Input placeholder="max@example.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -142,7 +158,7 @@ export function AddCustomer({ children }: AddCustomerProps) {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone (optional)</FormLabel>
+                    <FormLabel>Telefon (optional)</FormLabel>
                     <FormControl>
                       <Input placeholder="+49 123 456789" {...field} />
                     </FormControl>
@@ -157,9 +173,9 @@ export function AddCustomer({ children }: AddCustomerProps) {
               name="platform"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Platform</FormLabel>
+                  <FormLabel>Plattform *</FormLabel>
                   <FormControl>
-                    <Input placeholder="eBay, Instagram, etc." {...field} />
+                    <Input placeholder="eBay, Instagram, Vinted, etc." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -171,10 +187,10 @@ export function AddCustomer({ children }: AddCustomerProps) {
               name="notes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Notes (optional)</FormLabel>
+                  <FormLabel>Notizen (optional)</FormLabel>
                   <FormControl>
                     <Textarea 
-                      placeholder="Any additional notes about this customer..."
+                      placeholder="Zusätzliche Notizen zu diesem Kunden..."
                       className="resize-none"
                       rows={3}
                       {...field}
@@ -187,13 +203,14 @@ export function AddCustomer({ children }: AddCustomerProps) {
 
             {/* Customer Image */}
             <div className="space-y-2">
-              <label className="text-sm font-medium">Customer Image (optional)</label>
+              <label className="text-sm font-medium">Kundenbild (optional)</label>
+              <p className="text-xs text-muted-foreground">Max. 5MB, JPG, PNG oder WEBP</p>
               {customerImage ? (
                 <div className="relative inline-block">
                   <img 
                     src={customerImage} 
                     alt="Customer preview" 
-                    className="w-24 h-24 object-cover rounded-lg border"
+                    className="w-24 h-24 object-cover rounded-lg border-2 border-brand-primary/20"
                   />
                   <Button
                     type="button"
@@ -206,14 +223,14 @@ export function AddCustomer({ children }: AddCustomerProps) {
                   </Button>
                 </div>
               ) : (
-                <div className="flex items-center justify-center w-24 h-24 border-2 border-dashed border-muted-foreground/25 rounded-lg">
-                  <label htmlFor="customer-image" className="cursor-pointer flex flex-col items-center">
+                <div className="flex items-center justify-center w-24 h-24 border-2 border-dashed border-muted-foreground/25 rounded-lg hover:border-brand-primary/50 transition-colors">
+                  <label htmlFor="customer-image-add" className="cursor-pointer flex flex-col items-center">
                     <Upload className="h-6 w-6 text-muted-foreground" />
                     <span className="text-xs text-muted-foreground mt-1">Upload</span>
                     <input
-                      id="customer-image"
+                      id="customer-image-add"
                       type="file"
-                      accept="image/*"
+                      accept="image/jpeg,image/png,image/webp"
                       onChange={handleImageUpload}
                       className="hidden"
                     />
@@ -222,12 +239,16 @@ export function AddCustomer({ children }: AddCustomerProps) {
               )}
             </div>
 
-            <div className="flex justify-end gap-3">
-              <Button type="button" variant="outline" onClick={() => setOpen(false)}>
-                Cancel
+            <div className="flex justify-end gap-3 pt-4">
+              <Button type="button" variant="outline" onClick={() => {
+                setOpen(false);
+                form.reset();
+                setCustomerImage("");
+              }}>
+                Abbrechen
               </Button>
               <Button type="submit" variant="success">
-                Add Customer
+                Kunde hinzufügen
               </Button>
             </div>
           </form>

@@ -17,6 +17,7 @@ import {
   Edit3
 } from "lucide-react";
 import { EditCustomer } from "@/components/forms/EditCustomer";
+import { AddCustomer } from "@/components/forms/AddCustomer";
 
 export default function Customers() {
   const { customers, sales, deleteCustomer } = useStore();
@@ -60,6 +61,12 @@ export default function Customers() {
           <h1 className="text-3xl font-bold">Customers</h1>
           <p className="text-muted-foreground">Manage your customer relationships and track purchases</p>
         </div>
+        <AddCustomer>
+          <Button variant="blue" className="flex items-center gap-2">
+            <Plus className="h-4 w-4" />
+            Kunde hinzufügen
+          </Button>
+        </AddCustomer>
       </div>
 
       {/* Search */}
@@ -131,7 +138,7 @@ export default function Customers() {
                           className="w-10 h-10 rounded-full object-cover border-2 border-brand-primary/20"
                         />
                       ) : (
-                        <div className="w-10 h-10 bg-gradient-orange rounded-full flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
                           <User className="h-5 w-5 text-white" />
                         </div>
                       )}
@@ -222,7 +229,7 @@ export default function Customers() {
                       className="w-12 h-12 rounded-full object-cover border-2 border-brand-primary/20"
                     />
                   ) : (
-                    <div className="w-12 h-12 bg-gradient-orange rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
                       <User className="h-6 w-6 text-white" />
                     </div>
                   )}
