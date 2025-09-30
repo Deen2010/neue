@@ -90,6 +90,62 @@ export const sizeCategoriesByType: Record<string, SizeCategory[]> = {
       label: "Handschuhe",
       sizes: ["6", "6.5", "7", "7.5", "8", "8.5", "9", "9.5", "10"]
     }
+  ],
+
+  // Uhren & Schmuck
+  uhren: [
+    {
+      label: "Armbandgröße (mm)",
+      sizes: ["38", "40", "41", "42", "44", "45", "46", "49"]
+    },
+    {
+      label: "Armband",
+      sizes: ["S", "M", "L", "Einstellbar"]
+    }
+  ],
+
+  // Taschen
+  taschen: [
+    {
+      label: "Größe",
+      sizes: ["Mini", "Klein", "Mittel", "Groß", "One Size"]
+    }
+  ],
+
+  // Elektronik
+  elektronik: [
+    {
+      label: "Bildschirmgröße",
+      sizes: ["5.4\"", "6.1\"", "6.7\"", "10.9\"", "11\"", "12.9\"", "13\"", "14\"", "15\"", "16\"", "24\"", "27\"", "32\""]
+    },
+    {
+      label: "Speicher",
+      sizes: ["64GB", "128GB", "256GB", "512GB", "1TB", "2TB"]
+    },
+    {
+      label: "Standard",
+      sizes: ["One Size"]
+    }
+  ],
+
+  // Sammelobjekte
+  sammelobjekte: [
+    {
+      label: "Standard",
+      sizes: ["One Size", "Klein", "Groß"]
+    }
+  ],
+
+  // Wohnen
+  wohnen: [
+    {
+      label: "Größe",
+      sizes: ["Klein", "Mittel", "Groß", "One Size"]
+    },
+    {
+      label: "Maße (cm)",
+      sizes: ["30x30", "40x40", "50x50", "60x60", "80x80", "100x100"]
+    }
   ]
 };
 
@@ -97,48 +153,48 @@ export const sizeCategoriesByType: Record<string, SizeCategory[]> = {
 export const categoryToSizeType: Record<string, string> = {
   // Schuhe
   "schuhe": "schuhe",
-  "sneaker": "schuhe", 
+  "sneakers": "schuhe", 
   "boots": "schuhe",
-  "sandalen": "schuhe",
-  "pumps": "schuhe",
-  "flip-flops": "schuhe",
+  "sandals": "schuhe",
+  "dress shoes": "schuhe",
+  "athletic shoes": "schuhe",
 
   // Oberteile
   "t-shirts": "t-shirts",
   "shirts": "t-shirts",
-  "tank tops": "t-shirts",
-  "langarmshirts": "t-shirts",
-  "pullover": "t-shirts",
   "hoodies": "t-shirts",
-  "sweatshirts": "t-shirts",
-  "blusen": "t-shirts",
+  "sweaters": "t-shirts",
+  "tank tops": "t-shirts",
 
   // Hosen
-  "hosen": "hosen",
   "jeans": "hosen",
+  "pants": "hosen",
   "shorts": "hosen",
-  "jogginghosen": "hosen",
+  "skirts": "hosen",
   "leggings": "hosen",
-  "chinos": "hosen",
 
   // Jacken
-  "jacken": "jacken",
-  "mäntel": "jacken",
-  "blazer": "jacken",
-  "westen": "jacken",
-
-  // Kleider & Röcke
-  "kleider": "kleider",
-  "röcke": "kleider",
-  "jumpsuits": "kleider",
+  "dresses": "kleider",
+  "jackets": "jacken",
+  "coats": "jacken",
+  "blazers": "jacken",
+  "vests": "jacken",
 
   // Accessoires
-  "accessoires": "accessoires",
-  "gürtel": "accessoires",
-  "taschen": "accessoires",
-  "mützen": "accessoires",
-  "handschuhe": "accessoires",
-  "schals": "accessoires"
+  "accessories": "accessoires",
+  "bags": "taschen",
+  "watches": "uhren",
+  "jewelry": "accessoires",
+  "hats": "accessoires",
+
+  // Elektronik
+  "electronics": "elektronik",
+
+  // Sammelobjekte
+  "collectibles": "sammelobjekte",
+
+  // Wohnen
+  "home & living": "wohnen"
 };
 
 export function getSizeSuggestionsForCategory(category: string): SizeCategory[] {

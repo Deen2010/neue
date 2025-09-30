@@ -25,12 +25,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { SmartInput } from "@/components/ui/smart-input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { NumberInput } from "@/components/ui/number-input";
 import { BrandInput } from "@/components/ui/brand-input";
 import { CategorySelect } from "@/components/ui/category-select";
 import { SizeSelect } from "@/components/ui/size-select";
+import { parseItemName } from "@/utils/itemParser";
 import { useToast } from "@/hooks/use-toast";
 import { useStore } from "@/stores/useStore";
 import { Plus, Trash2 } from "lucide-react";
@@ -277,19 +279,40 @@ export function AddOrder({ children }: AddOrderProps) {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <FormField
-                        control={form.control}
-                        name={`items.${index}.name`}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Item Name</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Nike Air Max 90" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                       <FormField
+                         control={form.control}
+                         name={`items.${index}.name`}
+                         render={({ field }) => (
+                           <FormItem>
+                             <FormLabel>Item Name</FormLabel>
+                             <FormControl>
+                               <SmartInput 
+                                 {...field} 
+                                 placeholder="Nike Air Max 90" 
+                                 autoDetectFn={parseItemName}
+                                 onAutoDetect={(detected) => {
+                                   const currentItem = form.getValues(`items.${index}`);
+                                   const updates: any = {};
+                                   
+                                   if (detected.detectedBrand && !currentItem.brand) {
+                                     updates.brand = detected.detectedBrand;
+                                   }
+                                   if (detected.detectedCategory && !currentItem.category) {
+                                     updates.category = detected.detectedCategory;
+                                   }
+                                   
+                                   if (Object.keys(updates).length > 0) {
+                                     Object.entries(updates).forEach(([key, value]) => {
+                                       form.setValue(`items.${index}.${key}` as any, value);
+                                     });
+                                   }
+                                 }}
+                               />
+                             </FormControl>
+                             <FormMessage />
+                           </FormItem>
+                         )}
+                       />
                       
                       <FormField
                         control={form.control}

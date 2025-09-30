@@ -4,11 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SmartInput } from "@/components/ui/smart-input";
 import { Label } from "@/components/ui/label";
 import { BrandInput } from "@/components/ui/brand-input";
 import { CategorySelect } from "@/components/ui/category-select";
 import { SizeSelect } from "@/components/ui/size-select";
 import { NumberInput } from "@/components/ui/number-input";
+import { parseItemName } from "@/utils/itemParser";
 import {
   Dialog,
   DialogContent,
@@ -108,19 +110,40 @@ export function EditInventoryItem({ children, item }: EditInventoryItemProps) {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Item Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="e.g., Vintage Band T-Shirt" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+               <FormField
+                 control={form.control}
+                 name="name"
+                 render={({ field }) => (
+                   <FormItem>
+                     <FormLabel>Item Name</FormLabel>
+                     <FormControl>
+                       <SmartInput 
+                         {...field} 
+                         placeholder="e.g., Vintage Band T-Shirt" 
+                         autoDetectFn={parseItemName}
+                         onAutoDetect={(detected) => {
+                           const currentValues = form.getValues();
+                           const updates: any = {};
+                           
+                           if (detected.detectedBrand && !currentValues.brand) {
+                             updates.brand = detected.detectedBrand;
+                           }
+                           if (detected.detectedCategory && !currentValues.category) {
+                             updates.category = detected.detectedCategory;
+                           }
+                           
+                           if (Object.keys(updates).length > 0) {
+                             Object.entries(updates).forEach(([key, value]) => {
+                               form.setValue(key as any, value);
+                             });
+                           }
+                         }}
+                       />
+                     </FormControl>
+                     <FormMessage />
+                   </FormItem>
+                 )}
+               />
 
               <FormField
                 control={form.control}
