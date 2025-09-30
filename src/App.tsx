@@ -12,10 +12,14 @@ import Customers from "./pages/Customers";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import { useCurrencyConverter } from "./hooks/useCurrencyConverter";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  useCurrencyConverter();
+  
+  return (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
@@ -37,6 +41,7 @@ const App = () => (
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
-);
+  );
+};
 
 export default App;

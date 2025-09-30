@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { convertCurrency } from '@/utils/exchangeRates';
+import { Currency } from '@/stores/useSettingsStore';
 
 export interface InventoryItem {
   id: string;
@@ -91,6 +93,7 @@ interface StoreState {
   getItemsByOrder: (orderId: string) => InventoryItem[];
   getCustomerByName: (name: string) => Customer | undefined;
   markItemAsSold: (itemId: string, saleData: Omit<Sale, 'id' | 'itemId' | 'itemName' | 'purchasePrice' | 'profit' | 'image'>) => void;
+  convertAllPrices: (newCurrency: Currency, oldCurrency: Currency) => void;
 }
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -214,6 +217,27 @@ export const useStore = create<StoreState>()(
             lastPurchase: saleData.date
           });
         }
+      },
+
+      convertAllPrices: (newCurrency: Currency, oldCurrency: Currency) => {
+        set((state) => ({
+          inventory: state.inventory.map(item => ({
+            ...item,
+            purchasePrice: convertCurrency(item.purchasePrice, oldCurrency, newCurrency),
+            currentPrice: convertCurrency(item.currentPrice, oldCurrency, newCurrency)
+          })),
+          orders: state.orders.map(order => ({
+            ...order,
+            totalCost: convertCurrency(order.totalCost, oldCurrency, newCurrency)
+          })),
+          sales: state.sales.map(sale => ({
+            ...sale,
+            salePrice: convertCurrency(sale.salePrice, oldCurrency, newCurrency),
+            purchasePrice: convertCurrency(sale.purchasePrice, oldCurrency, newCurrency),
+            fees: convertCurrency(sale.fees, oldCurrency, newCurrency),
+            profit: convertCurrency(sale.profit, oldCurrency, newCurrency)
+          }))
+        }));
       }
     }),
     {

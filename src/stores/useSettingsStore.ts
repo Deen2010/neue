@@ -9,15 +9,22 @@ interface SettingsState {
   currency: Currency;
   setTheme: (theme: Theme) => void;
   setCurrency: (currency: Currency) => void;
+  previousCurrency?: Currency;
 }
 
 export const useSettingsStore = create<SettingsState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       theme: 'dark',
       currency: 'EUR',
       setTheme: (theme) => set({ theme }),
-      setCurrency: (currency) => set({ currency }),
+      setCurrency: (currency) => {
+        const currentState = get();
+        set({ 
+          previousCurrency: currentState.currency,
+          currency 
+        });
+      },
     }),
     {
       name: 'resale-hub-settings',

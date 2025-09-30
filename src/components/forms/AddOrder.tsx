@@ -355,14 +355,14 @@ export function AddOrder({ children }: AddOrderProps) {
                           <FormItem>
                             <FormLabel>Purchase Price (€)</FormLabel>
                             <FormControl>
-                              <NumberInput
-                                value={field.value}
-                                onChange={field.onChange}
-                                step={1}
-                                min={0}
-                                currency="€"
-                                placeholder="45.00"
-                              />
+                               <NumberInput
+                                 value={field.value}
+                                 onChange={field.onChange}
+                                 step={0.01}
+                                 min={0}
+                                 currency="€"
+                                 placeholder="45.00"
+                               />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -376,14 +376,14 @@ export function AddOrder({ children }: AddOrderProps) {
                           <FormItem>
                             <FormLabel>Current/List Price (€)</FormLabel>
                             <FormControl>
-                              <NumberInput
-                                value={field.value}
-                                onChange={field.onChange}
-                                step={1}
-                                min={0}
-                                currency="€"
-                                placeholder="85.00"
-                              />
+                               <NumberInput
+                                 value={field.value}
+                                 onChange={field.onChange}
+                                 step={0.01}
+                                 min={0}
+                                 currency="€"
+                                 placeholder="85.00"
+                               />
                             </FormControl>
                             <FormMessage />
                           </FormItem>

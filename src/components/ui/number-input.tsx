@@ -15,7 +15,7 @@ interface NumberInputProps extends Omit<React.InputHTMLAttributes<HTMLInputEleme
 }
 
 export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
-  ({ value, onChange, step = 1, min = 0, max, currency = "€", className, ...props }, ref) => {
+  ({ value, onChange, step = 0.01, min = 0, max, currency = "€", className, ...props }, ref) => {
     const handleIncrement = () => {
       const newValue = value + step;
       if (max === undefined || newValue <= max) {
